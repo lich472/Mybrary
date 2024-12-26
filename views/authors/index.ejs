@@ -1,0 +1,11 @@
+<h2>Searh Authors</h2>
+<form action="/authors" method="GET">
+    <label>Name</label>
+    <input type="text" name="name" value="<%= searchOptions.name ? searchOptions.name : '' %>">  <!-- means If searchOptions.name is undefined, it will now default to an empty string ('') instead of throwing an error. -->
+    <button type="submit">Search</button>
+</form>
+<br>
+<!-- using forEach loop to find all authors, 'authors' is from route.get creating in route-->
+<% authors.forEach(author => { %>
+    <div><%= author.name %></div>
+<% }) %>

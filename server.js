@@ -3,8 +3,8 @@ require('dotenv').config()
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const app = express()
-const Librarian = require('./models/librarian')
 const indexRouter = require('./routes/index')
+const authorRouter = require('./routes/authors')
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL)
@@ -15,7 +15,13 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
+// body-parser. Note: should be applied before the route definitions (app.use('/', indexRouter) and app.use('/authors', authorRouter)).
+app.use(express.json())
+app.use(express.urlencoded({limit: '10mb', extended: false})) // limit means we limits the uploaded files is 10mb
+
 app.use('/', indexRouter)
+app.use('/authors', authorRouter)
+
 
 db.on('err', err => console.err(err))
 db.once('open', () => console.log('Database Connected'))
