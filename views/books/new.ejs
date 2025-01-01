@@ -1,0 +1,6 @@
+<h2> New Books </h2> 
+<form action="/books" method="POST" enctype="multipart/form-data"> <!-- add enctype="multipart/form-data" which could include a file  -->
+    <%- include('_form_fields') %>
+    <a href="/books">Cancel</a> <!-- Using anchor tag here instead of button because anchor tag are used to link things and buttoms are used to interact with forms or another objects  -->
+    <button type="submit">Submit</button>
+</form>

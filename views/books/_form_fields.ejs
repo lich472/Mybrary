@@ -1,0 +1,41 @@
+<div>
+    <label>Title</label>
+    <input type="text" name="title" value="<%= book.title %>">
+</div>
+
+<div> <!-- Note: make dropdown list in js  -->
+    <label>Author</label>
+    <select name="author">
+        <% authors.forEach(author => { %>
+    <%    if(author.id === book.author) { %>
+            <option selected label="<%= author.name %>" value="<%= author.id %>"></option> 
+            <!-- the <option> with the "selected" attribute will pop up (appear as the default value) in the dropdown before any other option -->
+    <%    }else { %>
+            <option label="<%= author.name %>" value="<%= author.id %>"></option> 
+    <%      }  %>
+    <%   }) %>
+    </select> 
+</div>
+
+<div>
+    <label>Publish Date</label> 
+    <!-- Notice: the value "book.publishDate" inside of JSON object of book is not in the correct format to be used inside of this input date object so we need to convert "publishDate" of "book.publishDate" to the correct notation  -->
+    <input type="date" name="publishDate" 
+                    value="<%= book.publishDate == null ? '' : 
+                    book.publishDate.toISOString().split('T')[0]%>">
+</div>
+
+<div> <!-- min = "1" means the minimum page of book is 1 page-->
+    <label>Page Count</label>
+    <input type="number" name="pageCount" min="1" value="<%= book.pageCount%>">
+</div>
+
+<div>
+    <label>Cover</label>
+    <input type="file" name="cover">
+</div>
+
+<div> <!-- Using textarea instead of because as you can see that there is a large area to write down and it is different from input type= "text" and the "value" is put outside -->
+    <label>Description</label>
+    <textarea name="decription"><%= book.description %></textarea>
+</div>

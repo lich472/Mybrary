@@ -1,1 +1,6 @@
-Middle
+<h2>Recently Added</h2>
+<div>    <!-- using forEach loop to find IMAGES of books, 'books' is from route.get creating in route-->
+    <% books.forEach(book => { %>
+        <img height="150" width="100" src="<%= book.coverImagePath %>"> <!-- create a new variable "coverImagePath" which is going to give us a direct path to where that cover image is uploaded -> go to models/book.js -> create a virtual property -->
+    <% }) %> 
+</div>
