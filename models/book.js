@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const path = require('path')
+// const path = require('path')
 
 // where all of our cover images are going to be stored -> then export the varible 
-const coverImageBasePath = 'uploads/bookCovers' // the path which gonna be inside of our "public" folder 
+// const coverImageBasePath = 'uploads/bookCovers' // the path which gonna be inside of our "public" folder 
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -25,9 +25,13 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    coverImageName: {
-        type: String,
+    coverImage: {
+        type: Buffer, // represent our entire images
         required: true,
+    },
+    coverImageType: {
+        type: String,
+        required: true
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
@@ -37,11 +41,13 @@ const bookSchema = new mongoose.Schema({
 })
 
 bookSchema.virtual('coverImagePath').get(function() { // to fix the TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
-    if (this.coverImageName != null) {
-      return path.join('/', coverImageBasePath, this.coverImageName)
+    // Check if both `coverImage` and `coverImageType` are available
+    if (this.coverImage != null && this.coverImageType != null) {
+      // Return a Base64 encoded data URL
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
 })
 
 module.exports = mongoose.model("Book", bookSchema)
 // export the "coverImageBasePath" variable name -> then come back "routes/books" inside the "upload" variable
-module.exports.coverImageBasePath = coverImageBasePath
+// module.exports.coverImageBasePath = coverImageBasePath
