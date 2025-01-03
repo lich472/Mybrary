@@ -6,6 +6,8 @@ const app = express()
 const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
+// Set up method-override lib
+const methodOverride = require('method-override')
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL)
@@ -15,6 +17,8 @@ app.set('view engine','ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+// then we want to tell our app to use that method-override
+app.use(methodOverride('_method'))
 app.use(express.static('public'))
 // body-parser. Note: should be applied before the route definitions (app.use('/', indexRouter) and app.use('/authors', authorRouter)).
 app.use(express.json())

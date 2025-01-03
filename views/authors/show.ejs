@@ -1,0 +1,12 @@
+<!-- Step1: go to the view 
+Step2: create a show.ejs 
+Step3: then to the route -> show route -->
+<h2><%= author.name %></h2>
+<a href="/authors/<%= author.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm.ejs', { url: `/authors/${author.id}` })%>
+<% if(bookByAuthor.length > 0) { %> <!-- "bookByAuthor" will be declared later in router --> 
+    <h2>Books By Authors</h2>
+    <% bookByAuthor.forEach(book => { %>
+        <img height="150" width="100" src="<%= book.coverImagePath %>"> <!-- create a new variable "coverImagePath" which is going to give us a direct path to where that cover image is uploaded -> go to models/book.js -> create a virtual property -->
+    <% }) %> 
+<% } %>

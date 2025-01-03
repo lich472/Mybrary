@@ -1,4 +1,6 @@
-// we are no longer using fs, path which way to store images in the server, we want to save them in the database instead of because whenever the server is restarted, all images are invisible
+/* Important Note: we are no longer using fs, path which way to store images in the server, we want to save them in the database instead of because whenever the server is restarted, all images are invisible
+fs and path (for saving images as files) differ from FilePond with Buffer (for storing images as Base64 in the database)
+*/
 const express = require('express')
 const router = express.Router()
 const Book = require('../models/book')
